@@ -1,0 +1,13 @@
+(function(){var d=document,box=d.getElementById('rm-form');if(!box)return;var out=d.getElementById('rm-out'),q=d.getElementById('rm-q'),list=d.getElementById('rm-list'),ys=d.getElementById('rm-year'),cur=null,C=[],fx=box.getAttribute('data-city'),D=null;
+ if(fx){try{cur=JSON.parse(fx)}catch(e){}}
+ function norm(s){return s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'')}
+ function defm(cc){return {IN:'karachi',PK:'karachi',BD:'karachi',NP:'karachi',LK:'karachi',US:'isna',CA:'isna',SA:'makkah',AE:'makkah',QA:'makkah',KW:'makkah',BH:'makkah',OM:'makkah',EG:'egypt'}[cc]||'mwl'}
+ function calc(){if(!cur||!D){out.innerHTML='<p class="w3-empty">Choose a city.</p>';return}
+  var y=ys.value,s=D[y],p=s[0].split('-').map(Number),n=s[1],m=defm(cur.cc),han=(['IN','PK','BD','NP'].indexOf(cur.cc)>-1),rows='',i,t,dt0,wd;
+  for(i=0;i<n;i++){dt0=new Date(Date.UTC(p[0],p[1]-1,p[2]+i));t=PT.calc(dt0.getUTCFullYear(),dt0.getUTCMonth()+1,dt0.getUTCDate(),cur.lat,cur.lon,cur.tz,m,han);wd=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'][dt0.getUTCDay()];
+   rows+='<tr'+(wd==='Fri'?' class="fri"':'')+'><td>'+(i+1)+'<td>'+wd+' '+dt0.getUTCDate()+' '+['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][dt0.getUTCMonth()]+'<td class="w3-n">'+PT.hm(t.fajr)+'<td class="w3-n">'+PT.hm(t.maghrib)+'</tr>'}
+  out.innerHTML='<h2>'+cur.name+': Ramadan '+y+' AH, from '+s[0]+'</h2><div class="tbl"><table class="w3"><thead><tr><th>Day<th>Date<th class="w3-n">Sehri ends (Fajr)<th class="w3-n">Iftar (Maghrib)</thead><tbody>'+rows+'</tbody></table></div><p class="acts noprint"><button class="btn ghost sm" type="button" onclick="window.print()">Print</button></p>'}
+ function pick(c){cur=c;q.value=c.name;list.innerHTML='';try{history.replaceState(null,'','#c='+c.slug)}catch(e){}calc()}
+ fetch('/ramadan/data/years.json').then(function(r){return r.json()}).then(function(j){D=j;if(fx){calc()}else{fetch('/ramadan/data/cities.json').then(function(r){return r.json()}).then(function(k){C=k.c.map(function(a){return {name:a[0],slug:a[1],lat:a[2],lon:a[3],tz:k.z[a[4]],cc:a[5],k:norm(a[0]+' '+a[5])}});var m=location.hash.match(/c=([a-z0-9-]+)/);if(m)C.forEach(function(c){if(c.slug===m[1])pick(c)});if(!cur)calc()})}});
+ ys.addEventListener('change',calc);
+ if(q)q.addEventListener('input',function(){var v=norm(q.value.trim());list.innerHTML='';if(v.length<2)return;var n=0;C.forEach(function(c){if(n<8&&c.k.indexOf(v)>-1){n++;var b=d.createElement('button');b.type='button';b.className='sug';b.textContent=c.name+(c.cc!=='IN'?', '+c.cc:'');b.addEventListener('click',function(){pick(c)});list.appendChild(b)}})})})();

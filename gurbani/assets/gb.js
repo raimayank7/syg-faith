@@ -1,0 +1,3 @@
+(function(){var b=document.getElementById('trtoggle');if(!b)return;var d=document;
+ try{if(localStorage.getItem('gb-notr')==='1'){d.body.classList.add('notr');b.textContent='Show transliteration'}}catch(e){}
+ b.addEventListener('click',function(){var on=d.body.classList.toggle('notr');b.textContent=on?'Show transliteration':'Hide transliteration';try{localStorage.setItem('gb-notr',on?'1':'0')}catch(e){}})})();

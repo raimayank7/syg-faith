@@ -1,0 +1,2 @@
+(function(){var o=document.getElementById('sday');if(!o)return;fetch('/stoic/data/sections.json').then(function(r){return r.json()}).then(function(j){var n=new Date(),k=Math.floor(Date.UTC(n.getFullYear(),n.getMonth(),n.getDate())/864e5)%j.length,x=j[k],p=x[0].split('.');
+  o.innerHTML='<div class="ps"><div class="ref"><a href="/stoic/book/'+p[0]+'/#s'+p[1]+'">Meditations '+x[0]+'</a></div><p>'+x[1].replace(/[&<>]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;'}[c]})+'</p></div>'})})();

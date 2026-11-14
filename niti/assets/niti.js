@@ -1,0 +1,4 @@
+(function(){var q=document.getElementById('nq'),o=document.getElementById('nres');if(!q)return;var ix=null;function esc(s){return s.replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+ q.addEventListener('input',function(){var v=q.value.trim().toLowerCase();if(v.length<2){o.innerHTML='';return}function go(){var r=ix.filter(function(x){return x[0]===v||x[1].indexOf(v)>-1||x[2].toLowerCase().indexOf(v)>-1}).slice(0,25);
+  o.innerHTML=r.length?'<ul class="grid">'+r.map(function(x){var p=x[0].split('.');return '<li><a href="/niti/chapter/'+p[0]+'/#v'+p[1]+'">'+x[0]+' <small>'+esc(x[2].slice(0,70))+'</small></a></li>'}).join('')+'</ul>':'<p class="w3-empty">Nothing found. Try a Sanskrit word in Roman letters such as mitra, vidya or dhana, or a number like 5.2.</p>'}
+  if(ix)go();else fetch('/niti/data/verses.json').then(function(r){return r.json()}).then(function(j){ix=j;go()})})})();
