@@ -1,4 +1,4 @@
-const CACHE = 'syg-m-rahukaal-5010c6a73a', SHELL = ["/rahukaal/assets/site.css?v=403176beac", "/rahukaal/assets/site.js?v=38b96724e9", "/rahukaal/icons/logo-light.webp", "/rahukaal/icons/logo-dark.webp"];
+const CACHE = 'syg-m-rahukaal-75c362940e', SHELL = ["/rahukaal/assets/site.css?v=9cff45ef36", "/rahukaal/assets/site.js?v=38b96724e9", "/rahukaal/icons/logo-light.webp", "/rahukaal/icons/logo-dark.webp"];
 self.addEventListener('install', e => { self.skipWaiting(); e.waitUntil(caches.open(CACHE).then(c => c.addAll(SHELL)).catch(() => {})); });
 self.addEventListener('activate', e => e.waitUntil(caches.keys().then(ks => Promise.all(ks.filter(k => k.indexOf('syg-m-rahukaal-') === 0 && k !== CACHE).map(k => caches.delete(k)))).then(() => self.clients.claim())));
 self.addEventListener('fetch', e => {

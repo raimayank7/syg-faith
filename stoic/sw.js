@@ -1,4 +1,4 @@
-const CACHE = 'syg-m-stoic-5010c6a73a', SHELL = ["/stoic/assets/site.css?v=403176beac", "/stoic/assets/site.js?v=38b96724e9", "/stoic/icons/logo-light.webp", "/stoic/icons/logo-dark.webp"];
+const CACHE = 'syg-m-stoic-75c362940e', SHELL = ["/stoic/assets/site.css?v=9cff45ef36", "/stoic/assets/site.js?v=38b96724e9", "/stoic/icons/logo-light.webp", "/stoic/icons/logo-dark.webp"];
 self.addEventListener('install', e => { self.skipWaiting(); e.waitUntil(caches.open(CACHE).then(c => c.addAll(SHELL)).catch(() => {})); });
 self.addEventListener('activate', e => e.waitUntil(caches.keys().then(ks => Promise.all(ks.filter(k => k.indexOf('syg-m-stoic-') === 0 && k !== CACHE).map(k => caches.delete(k)))).then(() => self.clients.claim())));
 self.addEventListener('fetch', e => {

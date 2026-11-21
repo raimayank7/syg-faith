@@ -1,4 +1,4 @@
-const CACHE = 'syg-m-gurbani-5010c6a73a', SHELL = ["/gurbani/assets/site.css?v=403176beac", "/gurbani/assets/site.js?v=38b96724e9", "/gurbani/icons/logo-light.webp", "/gurbani/icons/logo-dark.webp"];
+const CACHE = 'syg-m-gurbani-75c362940e', SHELL = ["/gurbani/assets/site.css?v=9cff45ef36", "/gurbani/assets/site.js?v=38b96724e9", "/gurbani/icons/logo-light.webp", "/gurbani/icons/logo-dark.webp"];
 self.addEventListener('install', e => { self.skipWaiting(); e.waitUntil(caches.open(CACHE).then(c => c.addAll(SHELL)).catch(() => {})); });
 self.addEventListener('activate', e => e.waitUntil(caches.keys().then(ks => Promise.all(ks.filter(k => k.indexOf('syg-m-gurbani-') === 0 && k !== CACHE).map(k => caches.delete(k)))).then(() => self.clients.claim())));
 self.addEventListener('fetch', e => {
