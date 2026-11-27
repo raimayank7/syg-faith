@@ -1,4 +1,4 @@
-const CACHE = 'syg-m-buddha-75c362940e', SHELL = ["/buddha/assets/site.css?v=9cff45ef36", "/buddha/assets/site.js?v=38b96724e9", "/buddha/icons/logo-light.webp", "/buddha/icons/logo-dark.webp"];
+const CACHE = 'syg-m-buddha-82edbd176f', SHELL = ["/buddha/assets/site.css?v=36eb89c45d", "/buddha/assets/site.js?v=9977d20129", "/buddha/icons/logo-light.webp", "/buddha/icons/logo-dark.webp"];
 self.addEventListener('install', e => { self.skipWaiting(); e.waitUntil(caches.open(CACHE).then(c => c.addAll(SHELL)).catch(() => {})); });
 self.addEventListener('activate', e => e.waitUntil(caches.keys().then(ks => Promise.all(ks.filter(k => k.indexOf('syg-m-buddha-') === 0 && k !== CACHE).map(k => caches.delete(k)))).then(() => self.clients.claim())));
 self.addEventListener('fetch', e => {
